@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Recent Posts</h1>
+
+<% @posts.each do |post| %>
+  <div><h3><%= post.title %></h3></div>
+  <div><p><%= truncate(post.body, length: 350) %></p></div>
+  <div><p>Posted by: <strong><%= post.user.email %></strong> <%= time_ago_in_words(post.created_at) %> ago</p></div>
+  <div>
+  	<%= link_to 'Read More', post, class: 'btn btn-primary' %>
+  	<% if can? :delete, Post %> 
+  		<%= link_to "Delete Post", post, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+  	<% end %>
+  </div>
+  <hr></hr>
+<% end %>
+
+<br>
